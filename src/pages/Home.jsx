@@ -7,9 +7,12 @@ import { IoIosWarning } from "react-icons/io";
 import { deleteUser } from '../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from '../components/Modal';
+import { useAuth } from '../context/Auth';
 
 
 function Home() {
+
+    const [auth, setAuth] = useAuth()
     const dispatch = useDispatch();
     const { userDetails } = useSelector((state) => state.user);
     const [disabled, setDisabled] = useState(true);
@@ -60,6 +63,7 @@ function Home() {
 
     const handleLogout = () => {
         dispatch(logoutUser());
+        setAuth({ user: null, token: null });
         navigate('/login');
     };
 
