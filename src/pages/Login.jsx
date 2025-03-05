@@ -56,11 +56,11 @@ function Login() {
 
     return (
         <>
-            <div className='flex w-full h-screen items-center justify-center bg-secondary flex-col' >
-                <h1 className='mb-6 text-4xl font-dynapuff' >
+            <div className='flex w-full h-screen items-center justify-center bg-secondary flex-col p-4 md:p-8' >
+                <h1 className='mb-6 text-4xl font-dynapuff text-center' >
                     Login
                 </h1>
-                <form onSubmit={handleSubmit} className='flex flex-col p-6 rounded-lg shadow-custom items-center bg-primary w-96' >
+                <form onSubmit={handleSubmit} className='flex flex-col p-6 rounded-lg shadow-custom items-center bg-primary w-full max-w-sm' >
                     <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='NAME'
                         className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
                     />
@@ -69,7 +69,7 @@ function Login() {
                         className='w-full outline-none rounded-lg p-3 mb-8 bg-input placeholder:text-xs placeholder:tracking-wide placeholder:font-medium'
                     />
 
-                    <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type='submit' >LOG IN &nbsp; <span className='text-md text-link' ><FaCircleChevronRight /></span></button>
+                    <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full max-w-xs text-xs font-semibold' type='submit' >LOG IN &nbsp; <span className='text-md text-link' ><FaCircleChevronRight /></span></button>
                 </form>
 
                 <div className='flex w-full mt-9 justify-center text-xs text-link underline underline-offset-2' >
