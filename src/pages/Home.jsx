@@ -82,6 +82,7 @@ function Home() {
             toast("Account deleted successfully");
             dispatch(logoutUser());
             navigate('/login');
+            setAuth({ user: null, token: null });
         }
         setIsModalOpen(false);
     };
