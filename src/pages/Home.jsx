@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { IoIosWarning } from "react-icons/io";
 import { deleteUser } from '../redux/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import ConfirmationModal from '../components/Modal'; 
+import ConfirmationModal from '../components/Modal';
 
 
 function Home() {
@@ -60,7 +60,7 @@ function Home() {
 
     const handleLogout = () => {
         dispatch(logoutUser());
-        window.location.href = '/login';
+        navigate('/login');
     };
 
     const handlePasswordChange = async (e) => {
