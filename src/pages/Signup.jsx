@@ -23,9 +23,18 @@ function Signup() {
     return password.length >= minLength && hasLetter && hasDigit;
   };
 
+  const validateName = (name) => {
+    const hasInvalidStart = /^[^A-Za-z]/.test(name);
+    const hasSpaces = /\s/.test(name);
+    return !hasInvalidStart && !hasSpaces;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!validateName(name)) {
+      toast('Name must not start with a special character or number and should not contain spaces.', { className: 'text-sm font-outfit text-black opacity-100' });
+      return;
+    }
     if (!validatePassword(password)) {
       toast('Password must be at least 10 characters long, contain both letters and numbers, and include at least one digit.', { className: 'text-sm font-outfit text-black opacity-100' });
       return;
@@ -59,7 +68,7 @@ function Signup() {
             className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium mr-3'
             type="text"
             value={name}
-            placeholder='NAME'
+            placeholder='USER NAME'
             onChange={(e) => setName(e.target.value)}
             required
             minLength={2}

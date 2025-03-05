@@ -36,6 +36,14 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        // New username validation
+        const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/; // Should not start with special character or number, no spaces
+        if (!usernameRegex.test(name)) {
+            toast("Username must start with a letter and cannot contain spaces or special characters", { className: 'font-outfit text-sm' });
+            return;
+        }
+
         if (name.length < 2) {
             toast("Name must be at least 2 characters long", { className: 'font-outfit text-sm' });
             return;
@@ -61,7 +69,7 @@ function Login() {
                     Login
                 </h1>
                 <form onSubmit={handleSubmit} className='flex flex-col p-6 rounded-lg shadow-custom items-center bg-primary w-full max-w-sm' >
-                    <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='NAME'
+                    <input value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder='USER NAME'
                         className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
                     />
 
