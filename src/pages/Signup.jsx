@@ -48,7 +48,7 @@ function Signup() {
   };
 
   return (
-    <div className='flex w-full min-h-screen items-center justify-center bg-secondary flex-col  md:p-0'>
+    <div className='flex w-full min-h-screen items-center justify-center bg-secondary flex-col  md:p-0 p-4'>
       <h1 className='mb-6 text-4xl font-dynapuff max-[500px]:text-3xl' >
         Signup
       </h1>
