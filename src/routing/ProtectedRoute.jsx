@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import axios from "axios";
 import Login from "../pages/Login";
+import '../styles/loader.css'
 
 const ProtectedRoute = () => {
     const [isVerified, setIsVerified] = useState(false);
@@ -35,8 +36,10 @@ const ProtectedRoute = () => {
         }
     }, [auth?.token, location]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (true) {
+        return <div className="flex items-center justify-center w-full h-screen" >
+            <div className="loader" > </div>
+        </div>;
     }
 
     return isVerified ? <Outlet /> : <Login />;
