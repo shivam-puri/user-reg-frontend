@@ -1,11 +1,13 @@
-import React, { useState,  } from 'react';
+import React, { useState, } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
 
 
 function Signup() {
+  const navigate = useNavigate()
+
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [dob, setDob] = useState('');
@@ -38,8 +40,7 @@ function Signup() {
         about,
       });
       if (response.status === 201) {
-        // Redirect to login route
-        window.location.href = '/login';
+        navigate('/login')
       }
     } catch (error) {
       console.error('Registration error:', error);
