@@ -46,7 +46,8 @@ function Login() {
         }
         try {
             await dispatch(loginUser({ name, password })).unwrap();
-            window.location.href = '/home';
+            navigate("/home", { replace: true });
+            window.location.reload()
         } catch (error) {
             toast.error(error.message, { className: 'font-outfit text-sm' });
         }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/Auth";
 import axios from "axios";
 import Login from "../pages/Login";
@@ -9,6 +9,7 @@ const ProtectedRoute = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [auth] = useAuth();
     const baseURL = import.meta.env.VITE_API_BASE_URL;
+    const location = useLocation()
 
     useEffect(() => {
         const authCheck = async () => {
@@ -32,7 +33,7 @@ const ProtectedRoute = () => {
                 setIsLoading(false)
             }, 1000)
         }
-    }, [auth?.token]);
+    }, [auth?.token, location]);
 
     if (isLoading) {
         return <div>Loading...</div>;

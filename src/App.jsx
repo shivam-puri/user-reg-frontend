@@ -5,7 +5,7 @@ import { Flip, ToastContainer } from 'react-toastify';
 function App() {
 
   return (
-    <div className='flex w-full min-h-screen text-foreground' >
+    <div className='flex w-full min-h-screen text-foreground bg-secondary' >
       <AppRoutes />
       <ToastContainer
         position="top-center"
