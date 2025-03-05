@@ -86,33 +86,31 @@ function Signup() {
           />
         </div>
 
-        <div className='flex w-full'>
-          <div className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium mr-3 text-xs flex items-center' >
-            <select
-              className='w-full rounded-lg bg-input text-xs outline-none tracking-wider font-medium m text-xs'
-              value={gender} onChange={(e) => setGender(e.target.value)} required>
-              <option value="">GENDER</option>
-              {genderOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium text-xs flex items-center'>
-            <input
-              className='w-full rounded-lg    bg-input text-xs outline-none tracking-wider font-medium text-sm placeholder:uppercase placeholder:text-white custom-date-input'
-              type="date"
-              value={dob}
-              onChange={(e) => setDob(e.target.value)}
-              required
-              placeholder='DD-MM-YYYY'
-              max={new Date().toISOString().split("T")[0]}
-            />
-          </div>
-
+        <div className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium text-xs flex items-center' >
+          <select
+            className='w-full rounded-lg bg-input text-xs outline-none tracking-wider font-medium m text-xs'
+            value={gender} onChange={(e) => setGender(e.target.value)} required>
+            <option value="">GENDER</option>
+            {genderOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
+
+        <div className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium text-xs flex items-center'>
+          <input
+            className='w-full rounded-lg    bg-input text-xs outline-none tracking-wider font-medium text-sm placeholder:uppercase placeholder:text-white custom-date-input'
+            type="date"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+            required
+            placeholder='DD-MM-YYYY'
+            max={new Date().toISOString().split("T")[0]}
+          />
+        </div>
+
 
 
         <input
