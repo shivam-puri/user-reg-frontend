@@ -50,6 +50,13 @@ function Home() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
+        const nameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/;
+        if (!nameRegex.test(formData.name)) {
+            toast("Name can't start with a special character or number and cannot contain spaces.");
+            return;
+        }
+
         const res = await dispatch(updateUserDetails({ formData }));
         if (res.payload.message) toast(res.payload.message);
         setDisabled(true);
