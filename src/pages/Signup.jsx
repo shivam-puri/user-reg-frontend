@@ -1,0 +1,128 @@
+import React, { useState,  } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { FaCheckCircle } from "react-icons/fa";
+import { toast } from 'react-toastify';
+
+
+function Signup() {
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [dob, setDob] = useState('');
+  const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('');
+  const [about, setAbout] = useState('');
+  const [genderOptions, setGenderOptions] = useState(['Male', 'Female', 'Other']);
+
+  const validatePassword = (password) => {
+    const minLength = 10;
+    const hasLetter = /[A-Za-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    return password.length >= minLength && hasLetter && hasDigit;
+  };
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validatePassword(password)) {
+      toast('Password must be at least 10 characters long, contain both letters and numbers, and include at least one digit.', { className: 'text-sm font-outfit text-black opacity-100' });
+      return;
+    }
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/register`, {
+        name,
+        age,
+        date_of_birth: dob,
+        password,
+        gender,
+        about,
+      });
+      if (response.status === 201) {
+        // Redirect to login route
+        window.location.href = '/login';
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+    }
+  };
+
+  return (
+    <div className='flex w-full min-h-screen items-center justify-center bg-secondary flex-col  md:p-0'>
+      <h1 className='mb-6 text-4xl font-dynapuff max-[500px]:text-3xl' >
+        Signup
+      </h1>
+      <form className='flex flex-col p-6 rounded-lg shadow-custom items-center bg-primary ' onSubmit={handleSubmit}>
+
+        <div className='flex w-full' >
+          <input
+            className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium mr-3'
+            type="text"
+            value={name}
+            placeholder='NAME'
+            onChange={(e) => setName(e.target.value)}
+            required
+            minLength={2}
+          />
+          <input
+            className='rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium w-20'
+            type="number"
+            value={age}
+            placeholder='AGE'
+            onChange={(e) => setAge(e.target.value)}
+            required
+            min={0}
+            max={120}
+            style={{ appearance: 'none', MozAppearance: 'textfield' }}
+          />
+        </div>
+
+        <div className='flex w-full'>
+          <select
+            className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium mr-3 text-xs'
+            value={gender} onChange={(e) => setGender(e.target.value)} required>
+            <option value="">SELECT GENDER</option>
+            {genderOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+
+          <input
+            className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium mr-3 text-sm placeholder:uppercase placeholder:text-white'
+            type="date"
+            value={dob}
+            onChange={(e) => setDob(e.target.value)}
+            required
+          />
+        </div>
+
+
+        <input
+          className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
+          type="password"
+          value={password}
+          placeholder='PASSWORD'
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={10}
+        />
+
+        <textarea
+          value={about}
+          onChange={(e) => setAbout(e.target.value)}
+          maxLength={5000}
+          placeholder='ABOUT'
+          className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
+        />
+        <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type="submit">SUBMIT &nbsp; <span className='text-md text-link' ><FaCheckCircle /></span></button>
+      </form>
+
+      <div className='flex w-full mt-9 justify-center text-xs text-link underline underline-offset-2' >
+        <Link to='/login' >ALREADY HAVE AN ACCOUNT?  &nbsp; LOGIN HERE</Link>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;

@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+    --foreground: 255, 255, 255;
+    --border: 0,0,0;
+    --primary: 34, 36, 60;
+    --secondary : 15, 17, 42;
+    --input : 66, 69, 88;
+    --link : 66, 73, 100;
+    font-family: "Outfit";
+}
