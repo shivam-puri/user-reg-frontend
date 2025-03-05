@@ -99,18 +99,27 @@ function Home() {
                     <form onSubmit={handleUpdate} className='w-full space-y-4'>
                         <input autoFocus type='text' name='name' value={formData.name} onChange={handleChange} placeholder='NAME'
                             className='w-full rounded-lg p-3 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium' />
-                        <input type='number' name='age' value={formData.age} onChange={handleChange} placeholder='AGE'
+                        <input type='number' name='age' max={120} value={formData.age} onChange={handleChange} placeholder='AGE'
                             className='w-full rounded-lg p-3 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium' />
-                        <input type='date' name='date_of_birth' value={formData.date_of_birth ? formData.date_of_birth.split('T')[0] : ''} onChange={handleChange}
-                            className='w-full rounded-lg p-3 bg-input outline-none' />
-                        <input type='text' name='about' value={formData.about} onChange={handleChange} placeholder='ABOUT'
+
+                        <div className='w-full rounded-lg p-3 mb-4 bg-input outline-none tracking-wider font-medium mr-3 text-xs flex items-center'>
+                            <input type='date' name='date_of_birth' value={formData.date_of_birth ? formData.date_of_birth.split('T')[0] : ''} onChange={handleChange}
+                                className='w-full bg-input outline-none' />
+                        </div>
+
+
+                        <input type='text' name='about' max={5000} value={formData.about} onChange={handleChange} placeholder='ABOUT'
                             className='w-full rounded-lg p-3 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium' />
-                        <select name='gender' value={formData.gender} onChange={handleChange}
-                            className='w-full rounded-lg p-3 bg-input outline-none'>
-                            <option value='Male'>Male</option>
-                            <option value='Female'>Female</option>
-                            <option value='Other'>Other</option>
-                        </select>
+
+                        <div className='w-full rounded-lg p-3 mb-4 bg-input text-sm outline-none tracking-wider font-medium mr-3 flex items-center' >
+                            <select name='gender' value={formData.gender} onChange={handleChange}
+                                className='w-full bg-input outline-none'>
+                                <option value='Male'>Male</option>
+                                <option value='Female'>Female</option>
+                                <option value='Other'>Other</option>
+                            </select>
+                        </div>
+
                         <button disabled={disabled} type='submit'
                             className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full text-xs font-semibold hover:bg-opacity-90 transition'>UPDATE</button>
                     </form>
