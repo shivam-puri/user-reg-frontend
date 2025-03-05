@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaCheckCircle } from "react-icons/fa";
 import { toast } from 'react-toastify';
-
+import '../styles/calendar.css'
 
 function Signup() {
   const navigate = useNavigate()
@@ -91,7 +91,7 @@ function Signup() {
             <select
               className='w-full rounded-lg bg-input text-xs outline-none tracking-wider font-medium m text-xs'
               value={gender} onChange={(e) => setGender(e.target.value)} required>
-              <option value="">SELECT GENDER</option>
+              <option value="">GENDER</option>
               {genderOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
@@ -101,12 +101,13 @@ function Signup() {
           </div>
 
           <input
-            className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium mr-3 text-sm placeholder:uppercase placeholder:text-white'
+            className='w-full rounded-lg p-3 mb-4 bg-input text-xs outline-none tracking-wider font-medium text-sm placeholder:uppercase placeholder:text-white custom-date-input'
             type="date"
             value={dob}
             onChange={(e) => setDob(e.target.value)}
             required
-            placeholder='DOB'
+            placeholder='DD-MM-YYYY'
+            max={new Date().toISOString().split("T")[0]}
           />
         </div>
 
