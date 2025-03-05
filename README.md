@@ -1,12 +1,38 @@
-# React + Vite
+# User Registration Frontend  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the User Registration project, built using Vite and React.  
 
-Currently, two official plugins are available:
+## Getting Started  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to set up and run the frontend locally:  
 
-## Expanding the ESLint configuration
+### 1️⃣ Clone the Repository  
+```sh
+git clone https://github.com/shivam-puri/user-reg-frontend.git
+```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2️⃣ Navigate to the Project Directory  
+```sh
+cd user-reg-ui
+```
+
+### 3️⃣ Add Environment Variables  
+Create a `.env` file in the root directory and add the following variable:  
+```env
+VITE_API_BASE_URL=http://localhost:8080
+```
+*(Replace `8080` with the port on which your backend is running if different.)*  
+
+### 4️⃣ Install Dependencies  
+```sh
+npm install
+```
+
+### 5️⃣ Start the Development Server  
+```sh
+npm run dev
+```
+
+The frontend will now be running locally. 
+
+---
