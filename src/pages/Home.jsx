@@ -18,6 +18,9 @@ function Home() {
     const [disabled, setDisabled] = useState(true);
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const [formData, setFormData] = useState({
         about: userDetails?.user?.about || '',
@@ -50,16 +53,19 @@ function Home() {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        setIsUpdating(true);
 
         const nameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/;
         if (!nameRegex.test(formData.name)) {
-            toast("Name can't start with a special character or number and cannot contain spaces.");
+            toast("Name can't start with a special character or number and cannot contain spaces.", { className: 'font-outfit text-sm' });
+            setIsUpdating(false);
             return;
         }
 
         const res = await dispatch(updateUserDetails({ formData }));
         if (res.payload.message) toast(res.payload.message);
         setDisabled(true);
+        setIsUpdating(false);
     };
 
     const handleChange = (e) => {
@@ -68,25 +74,30 @@ function Home() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleLogout = () => {
-        dispatch(logoutUser());
+    const handleLogout = async () => {
+        setIsLoggingOut(true);
+        await dispatch(logoutUser());
         setAuth({ user: null, token: null });
         navigate('/login');
+        setIsLoggingOut(false);
     };
 
     const handlePasswordChange = async (e) => {
         e.preventDefault();
+        setIsChangingPassword(true);
+
         const res = await dispatch(updateUserPassword({ passwordData }));
         if (res.payload.message) {
-            toast(res.payload.message);
+            toast(res.payload.message, { className: 'font-outfit text-sm' });
             setPasswordData({ currentPassword: '', newPassword: '' });
         }
+        setIsChangingPassword(false);
     };
 
     const handleDeleteAccount = async () => {
         const res = await dispatch(deleteUser());
         if (res?.payload?.success) {
-            toast("Account deleted successfully");
+            toast("Account deleted successfully", { className: 'font-outfit text-sm' });
             dispatch(logoutUser());
             navigate('/login');
             setAuth({ user: null, token: null });
@@ -127,8 +138,10 @@ function Home() {
                             </select>
                         </div>
 
-                        <button disabled={disabled} type='submit'
-                            className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full text-xs font-semibold hover:bg-opacity-90 transition'>UPDATE</button>
+                        <button disabled={disabled || isUpdating} type='submit'
+                            className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full text-xs font-semibold hover:bg-opacity-90 transition'>
+                            {isUpdating ? 'UPDATING...' : 'UPDATE'}
+                        </button>
                     </form>
                 </div>
 
@@ -143,8 +156,10 @@ function Home() {
                             <input type='password' name='newPassword' value={passwordData.newPassword}
                                 onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                                 placeholder='NEW PASSWORD' className='w-full rounded-lg p-3 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium' />
-                            <button type='submit'
-                                className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full text-xs font-semibold hover:bg-opacity-90 transition'>CHANGE PASSWORD</button>
+                            <button type='submit' disabled={isChangingPassword}
+                                className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full text-xs font-semibold hover:bg-opacity-90 transition'>
+                                {isChangingPassword ? 'CHANGING...' : 'CHANGE PASSWORD'}
+                            </button>
                         </form>
                     </div>
 
@@ -161,7 +176,9 @@ function Home() {
                 </div>
             </div>
 
-            <button onClick={handleLogout} className='mt-6 flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold hover:bg-red-600 transition'>LOGOUT</button>
+            <button onClick={handleLogout} disabled={isLoggingOut} className='mt-6 flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold hover:bg-red-600 transition'>
+                {isLoggingOut ? 'LOGGING OUT...' : 'LOGOUT'}
+            </button>
 
             <ConfirmationModal
                 isOpen={isModalOpen}

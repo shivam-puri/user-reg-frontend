@@ -45,6 +45,17 @@ function Signup() {
     }
     console.log("try")
     try {
+      const currentDate = new Date();
+      const birthDate = new Date(dob);
+      const calculatedAge = currentDate.getFullYear() - birthDate.getFullYear();
+      // Check if the difference in years is more than 1
+      if (Math.abs(calculatedAge - age) >= 2) {
+        toast(`You can't be ${age} years old and born at ${dob} at the same time, correct your 
+        age or DOB`, { className: 'text-sm font-outfit text-black opacity-100' });
+        setSubmitting(false)
+        return;
+      }
+
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/register`, {
         name,
         age,
@@ -55,17 +66,17 @@ function Signup() {
       });
       console.log("response ", response)
       if (response?.message) {
-        toast(response?.message)
+        toast(response?.message, { className: 'font-outfit text-sm' })
       }
       if (response.status === 200) {
-        toast(response?.data?.error)
+        toast(response?.data?.error, { className: 'font-outfit text-sm' })
       }
       if (response.status === 201) {
         navigate('/login')
       }
     } catch (error) {
       console.error('Registration error:', error?.response?.data?.message);
-      toast(error?.response?.data?.message);
+      toast(error?.response?.data?.message, { className: 'font-outfit text-sm' });
     } finally {
       setSubmitting(false)
     }
