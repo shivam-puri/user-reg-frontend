@@ -156,7 +156,7 @@ function Signup() {
           placeholder='ABOUT'
           className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
         />
-        <button disabled={submitting} className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type="submit">{submitting ? 'Submitting...' : 'Submit'} &nbsp; <span className='text-md text-link' ><FaCheckCircle /></span></button>
+        <button disabled={submitting} className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type="submit">{submitting ? 'SUBMITTING...' : 'SUBMIT'} &nbsp; <span className='text-md text-link' ><FaCheckCircle /></span></button>
       </form>
 
       <div className='flex w-full mt-9 justify-center text-xs text-link underline underline-offset-2' >
