@@ -14,6 +14,7 @@ function Login() {
     const [password, setPassword] = useState('')
     const [auth] = useAuth();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const authCheck = async () => {
@@ -36,20 +37,24 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true);
 
         // New username validation
         const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]*$/; // Should not start with special character or number, no spaces
         if (!usernameRegex.test(name)) {
             toast("Username must start with a letter and cannot contain spaces or special characters", { className: 'font-outfit text-sm' });
+            setLoading(false);
             return;
         }
 
         if (name.length < 2) {
             toast("Name must be at least 2 characters long", { className: 'font-outfit text-sm' });
+            setLoading(false);
             return;
         }
         if (password.length < 10) {
             toast("Password must be at least 10 characters long", { className: 'font-outfit text-sm' });
+            setLoading(false);
             return;
         }
         try {
@@ -58,6 +63,8 @@ function Login() {
             window.location.reload()
         } catch (error) {
             toast.error(error.message, { className: 'font-outfit text-sm' });
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -77,7 +84,9 @@ function Login() {
                         className='w-full outline-none rounded-lg p-3 mb-8 bg-input placeholder:text-xs placeholder:tracking-wide placeholder:font-medium'
                     />
 
-                    <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full max-w-xs text-xs font-semibold' type='submit' >LOG IN &nbsp; <span className='text-md text-link' ><FaCircleChevronRight /></span></button>
+                    <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-full max-w-xs text-xs font-semibold' type='submit' >
+                        {loading ? 'LOGGING IN...' : 'LOG IN'} &nbsp; <span className='text-md text-link' ><FaCircleChevronRight /></span>
+                    </button>
                 </form>
 
                 <div className='flex w-full mt-9 justify-center text-xs text-link underline underline-offset-2' >
