@@ -33,7 +33,10 @@ function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true)
-    if (!validateName(name)) {
+
+    const trimmedName = name.trim();
+    console.log("trimmed name : ", trimmedName)
+    if (!validateName(trimmedName)) {
       toast('Name must not start with a special character or number and should not contain spaces.', { className: 'text-sm font-outfit text-black opacity-100' });
       setSubmitting(false)
       return;
@@ -57,7 +60,7 @@ function Signup() {
       }
 
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/register`, {
-        name,
+        name: trimmedName,
         age,
         date_of_birth: dob,
         password,
@@ -106,7 +109,7 @@ function Signup() {
             placeholder='AGE'
             onChange={(e) => setAge(e.target.value)}
             required
-            min={0}
+            min={15}
             max={120}
             style={{ appearance: 'none', MozAppearance: 'textfield' }}
           />
