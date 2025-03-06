@@ -15,6 +15,7 @@ function Signup() {
   const [gender, setGender] = useState('');
   const [about, setAbout] = useState('');
   const [genderOptions, setGenderOptions] = useState(['Male', 'Female', 'Other']);
+  const [submitting, setSubmitting] = useState(false)
 
   const validatePassword = (password) => {
     const minLength = 10;
@@ -31,14 +32,18 @@ function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitting(true)
     if (!validateName(name)) {
       toast('Name must not start with a special character or number and should not contain spaces.', { className: 'text-sm font-outfit text-black opacity-100' });
+      setSubmitting(false)
       return;
     }
     if (!validatePassword(password)) {
       toast('Password must be at least 10 characters long, contain both letters and numbers, and include at least one digit.', { className: 'text-sm font-outfit text-black opacity-100' });
+      setSubmitting(false)
       return;
     }
+    console.log("try")
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/register`, {
         name,
@@ -48,11 +53,21 @@ function Signup() {
         gender,
         about,
       });
+      console.log("response ", response)
+      if (response?.message) {
+        toast(response?.message)
+      }
+      if (response.status === 200) {
+        toast(response?.data?.error)
+      }
       if (response.status === 201) {
         navigate('/login')
       }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Registration error:', error?.response?.data?.message);
+      toast(error?.response?.data?.message);
+    } finally {
+      setSubmitting(false)
     }
   };
 
@@ -130,7 +145,7 @@ function Signup() {
           placeholder='ABOUT'
           className='w-full rounded-lg p-3 mb-4 bg-input placeholder:text-xs outline-none placeholder:tracking-wide placeholder:font-medium'
         />
-        <button className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type="submit">SUBMIT &nbsp; <span className='text-md text-link' ><FaCheckCircle /></span></button>
+        <button disabled={submitting} className='flex items-center justify-center rounded-custom bg-white text-black p-3 w-40 text-xs font-semibold' type="submit">{submitting ? 'Submitting...' : 'Submit'} &nbsp; <span className='text-md text-link' ><FaCheckCircle /></span></button>
       </form>
 
       <div className='flex w-full mt-9 justify-center text-xs text-link underline underline-offset-2' >
